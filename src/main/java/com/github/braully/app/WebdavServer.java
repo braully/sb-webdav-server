@@ -17,6 +17,7 @@ package com.github.braully.app;
  * limitations under the License.
  */
 import com.github.braully.web.WebdavServletDecorator;
+import com.github.braully.web.WebdavServletWrapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -42,11 +43,18 @@ public class WebdavServer
 //    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 //        configurer.enable();
 //    }
-
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         WebdavServletDecorator webdavServlet = new WebdavServletDecorator();
         var servletRegistry = new ServletRegistrationBean(webdavServlet, "/webdav/*");
+        servletRegistry.setLoadOnStartup(1);
+        return servletRegistry;
+    }
+
+    @Bean
+    public ServletRegistrationBean servletRegistrationBean2() {
+        var webdavServlet = new WebdavServletWrapp();
+        var servletRegistry = new ServletRegistrationBean(webdavServlet, "/webdav2/*");
         servletRegistry.setLoadOnStartup(1);
         return servletRegistry;
     }

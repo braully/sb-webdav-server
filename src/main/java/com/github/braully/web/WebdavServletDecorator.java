@@ -17,18 +17,31 @@ package com.github.braully.web;
  * limitations under the License.
  */
 import java.io.IOException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.catalina.Globals;
+import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.servlets.WebdavServlet;
+import org.apache.catalina.webresources.StandardRoot;
 
 /**
  *
  * @author Braully Rocha da Silva
  */
 public class WebdavServletDecorator extends WebdavServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        //resources = (WebResourceRoot) getServletContext().getAttribute(Globals.RESOURCES_ATTR);
+        //resources = new StandardRoot();
+        //resurces = new WebResourceRoot();
+        
+    }
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
@@ -39,4 +52,5 @@ public class WebdavServletDecorator extends WebdavServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
     }
+
 }
